@@ -59,7 +59,7 @@ export default function RootLayout({
         className={`${inter.variable} ${outfit.variable} font-body antialiased bg-white text-gray-800 min-h-screen flex flex-col`}
       >
         <Header />
-        <main className="flex-grow pt-14 sm:pt-16">
+        <main className="flex-grow">
           {children}
         </main>
         <Footer />

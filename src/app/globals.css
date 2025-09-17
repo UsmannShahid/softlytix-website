@@ -126,4 +126,13 @@
   body {
     @apply bg-background text-foreground;
   }
+  html, body {
+    /* Prevent accidental horizontal scroll on small devices */
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  img, svg, video, canvas, audio, iframe, embed, object {
+    display: block;
+    max-width: 100%;
+  }
 }

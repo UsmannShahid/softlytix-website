@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 import {
@@ -35,43 +36,72 @@ const solutions = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
+  const initialScrolled = pathname !== "/";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(initialScrolled);
+  const [useWhiteLogo, setUseWhiteLogo] = useState(true);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(initialScrolled || window.scrollY > 10);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [initialScrolled]);
+
+  const headerClasses = scrolled
+    ? "bg-gradient-to-br from-[#E0F3FC] via-white to-white border-b shadow-sm"
+    : "bg-transparent border-transparent shadow-none";
+
+  const linkBase = scrolled
+    ? "text-heading hover:text-primary"
+    : "text-white hover:text-white/80";
+
+  const iconColor = scrolled ? "text-primary-dark" : "text-white";
 
   return (
-    <header className="fixed w-full top-0 left-0 bg-gradient-to-br from-[#E0F3FC] via-white to-white border-b shadow-sm z-40">
+    <header className={`fixed w-full top-0 left-0 z-40 transition-colors duration-300 ${headerClasses}`}>
       <div className="max-w-6xl mx-auto flex justify-between items-center h-14 sm:h-16 px-6">
         
         {/* Logo */}
         <Link href="/" className="block relative z-50">
           <Image
-            src="/softlytix-official-logo.png"
+            src={(!scrolled && useWhiteLogo) ? "/images/Softlytix%20Official%20Logo%20-%20White.png" : "/softlytix-official-logo.png"}
             alt="Softlytix Logo"
-            width={120}
-            height={48}
-            className="w-auto h-8 sm:h-10 md:h-12 transition-all duration-200"
+            width={140}
+            height={40}
+            sizes="(max-width: 640px) 170px, 140px"
+            className="w-auto h-10 sm:h-10 md:h-11 transition-all duration-200"
             priority
+            onError={() => setUseWhiteLogo(false)}
           />
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-4 text-xs font-semibold text-heading items-center relative z-50">
-          <Link href="/" className="hover:text-primary transition-colors">
+        <nav className="hidden md:flex gap-2 text-sm font-semibold items-center relative z-50">
+          <Link href="/" className={`${linkBase} transition-colors px-3 py-2 rounded-md`}>
             Home
           </Link>
-          <Link href="/about" className="hover:text-primary transition-colors">
+          <Link href="/about" className={`${linkBase} transition-colors px-3 py-2 rounded-md`}>
             About
           </Link>
 
           {/* Solutions Dropdown */}
-          <NavigationMenu>
+          <NavigationMenu viewport={false}>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-xs font-semibold text-heading hover:text-primary bg-transparent">
+                <NavigationMenuTrigger
+                  className={`text-sm font-semibold !bg-transparent !px-3 !py-2 rounded-md ${linkBase} hover:!bg-transparent focus:!bg-transparent data-[state=open]:!bg-transparent ${scrolled ? "hover:text-heading focus:text-heading data-[state=open]:text-heading" : "hover:text-white focus:text-white data-[state=open]:text-white"}`}
+                >
                   Solutions
                 </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                <NavigationMenuContent
+                  className="top-full mt-2 md:mt-2 md:absolute md:right-0 md:left-auto md:origin-top-right md:-translate-x-0 md:translate-y-0 left-4 right-4 w-auto md:w-[min(90vw,640px)] max-w-[min(95vw,640px)] md:mx-0 mx-auto overflow-auto max-h-[70vh] md:max-h-[80vh] rounded-xl border shadow-xl backdrop-blur-md bg-white/95 text-gray-800 dark:bg-[#0f172a]/95 dark:text-white z-50 data-[state=closed]:p-0 p-2"
+                >
+                  <ul className="grid gap-3 p-4 w-full max-w-[min(90vw,640px)] md:max-w-[640px] lg:grid-cols-[.75fr_1fr]">
                     <li className="row-span-3">
                       <NavigationMenuLink asChild>
                         <Link
@@ -102,19 +132,17 @@ export default function Header() {
             </NavigationMenuList>
           </NavigationMenu>
 
-          <Link href="/contact" className="hover:text-primary transition-colors">
+          <Link href="/contact" className={`${linkBase} transition-colors px-3 py-2 rounded-md`}>
             Contact
           </Link>
-          <Link href="/blog" className="hover:text-primary transition-colors">
-            Blog
-          </Link>
+          {/** Blog link temporarily removed until blog is ready */}
         </nav>
 
         {/* Mobile Menu Toggle */}
         <Button
           variant="ghost"
           size="sm"
-          className="md:hidden text-primary-dark relative z-50"
+          className={`md:hidden relative z-50 ${iconColor}`}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
         >
@@ -134,7 +162,11 @@ export default function Header() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden fixed inset-0 z-50 bg-gradient-to-b from-[#E0F3FC] via-white to-white px-8 py-10 text-sm font-semibold text-primary-dark rounded-t-3xl shadow-2xl backdrop-blur-md"
+            className="md:hidden fixed inset-0 z-50 bg-gradient-to-b from-[#E0F3FC] via-white to-white px-6 sm:px-8 py-8 sm:py-10 text-sm font-semibold text-primary-dark rounded-t-3xl shadow-2xl backdrop-blur-md"
+            style={{
+              paddingTop: "calc(env(safe-area-inset-top, 0px) + 1.5rem)",
+              paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 1.5rem)",
+            }}
           >
             {/* Close Button */}
             <div className="absolute top-6 right-6">
@@ -209,13 +241,7 @@ export default function Header() {
               >
                 Contact
               </Link>
-              <Link
-                href="/blog"
-                className="block hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Blog
-              </Link>
+              {/** Blog link temporarily removed until blog is ready */}
             </nav>
           </motion.div>
         )}
