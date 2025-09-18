@@ -12,6 +12,18 @@ const fadeInUp = {
   whileInView: { opacity: 1, y: 0 },
 };
 
+const floatY = {
+  animate: {
+    y: [0, -4, 0],
+    transition: {
+      duration: 6,
+      ease: "easeInOut",
+      repeat: Infinity,
+      repeatType: "reverse",
+    },
+  },
+};
+
 export default function Page() {
   const onSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +54,7 @@ export default function Page() {
             variants={fadeInUp}
           >
             <p className="text-lg text-[#374151] leading-relaxed">
-              We’re a team passionate about empowering service businesses with AI.
+              We're a team passionate about empowering service businesses with AI.
               Our tools help you automate tasks, personalize communication, and
               scale operations — without hiring a full tech team.
             </p>
@@ -50,8 +62,48 @@ export default function Page() {
         </div>
       </section>
 
+      {/* Built to Empower Section */}
+      <section className="py-20 px-6 bg-[#F9FAFB] text-center">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-16"
+          >
+            <motion.div className="mb-8" variants={floatY} aria-hidden>
+              <Image
+                src="/undraw_screen-time_f7ev.svg"
+                alt=""
+                width={180}
+                height={180}
+                className="mx-auto w-44"
+              />
+            </motion.div>
+
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-heading mb-6">
+              Built to Empower Service Businesses with AI
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <p className="text-[#374151] text-lg mb-6">
+              Softlytix is your partner in intelligent automation—helping coaches,
+              agencies, and creators save time, grow faster, and work smarter with
+              AI-powered tools tailored to their workflow.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Our Vision */}
-      <section className="py-20 px-6 bg-[#F9FAFB]">
+      <section className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <motion.div
             className="order-1 md:order-none"

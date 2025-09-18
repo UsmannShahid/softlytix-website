@@ -130,6 +130,7 @@
     /* Prevent accidental horizontal scroll on small devices */
     max-width: 100vw;
     overflow-x: hidden;
+    scroll-behavior: smooth;
   }
   img, svg, video, canvas, audio, iframe, embed, object {
     display: block;
