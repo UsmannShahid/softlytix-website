@@ -19,19 +19,29 @@ import { cn } from "@/lib/utils";
 
 const solutions = [
   {
-    title: "Lead Qualifier",
-    href: "/solutions/lead-qualifier",
-    description: "AI-powered lead qualification and scoring",
+    title: "AI Websites & Web Apps",
+    href: "/?service=webapps#solutions",
+    description: "Create websites and apps enhanced with AI features like chatbots, personalization, and analytics",
   },
   {
     title: "Workflow Automation",
-    href: "/solutions/workflow-automation",
-    description: "Streamline your business processes",
+    href: "/?service=automation#solutions",
+    description: "Eliminate repetitive tasks with AI-driven automation—from follow-ups to reporting",
   },
   {
-    title: "Email Assistant",
-    href: "/solutions/email-assistant",
-    description: "Intelligent email management and responses",
+    title: "Custom AI SaaS Products",
+    href: "/?service=saas#solutions",
+    description: "Build and launch scalable AI SaaS platforms—from idea to deployment",
+  },
+  {
+    title: "Voice & Chat AI Assistants",
+    href: "/?service=voice#solutions",
+    description: "Engage customers with conversational AI via chat or voice",
+  },
+  {
+    title: "AI Email & CRM Assistants",
+    href: "/?service=crm#solutions",
+    description: "Personalize outreach and manage leads directly in your CRM",
   },
 ];
 
@@ -81,7 +91,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-2 text-sm font-semibold items-center relative z-50">
+        <nav className="hidden md:flex gap-2 text-sm font-medium items-center relative z-50">
           <Link href="/" className={`${linkBase} transition-colors px-3 py-2 rounded-md`}>
             Home
           </Link>
@@ -94,28 +104,31 @@ export default function Header() {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger
-                  className={`text-sm font-semibold !bg-transparent !px-3 !py-2 rounded-md ${linkBase} hover:!bg-transparent focus:!bg-transparent data-[state=open]:!bg-transparent ${scrolled ? "hover:text-heading focus:text-heading data-[state=open]:text-heading" : "hover:text-white focus:text-white data-[state=open]:text-white"}`}
+                  className={`text-sm font-medium !bg-transparent !px-3 !py-2 rounded-md ${linkBase} hover:!bg-transparent focus:!bg-transparent data-[state=open]:!bg-transparent ${scrolled ? "hover:text-heading focus:text-heading data-[state=open]:text-heading" : "hover:text-white focus:text-white data-[state=open]:text-white"}`}
                 >
                   Solutions
                 </NavigationMenuTrigger>
                 <NavigationMenuContent
-                  className="top-full mt-2 md:mt-2 md:absolute md:right-0 md:left-auto md:origin-top-right md:-translate-x-0 md:translate-y-0 left-4 right-4 w-auto md:w-[min(90vw,640px)] max-w-[min(95vw,640px)] md:mx-0 mx-auto overflow-auto max-h-[70vh] md:max-h-[80vh] rounded-xl border shadow-xl backdrop-blur-md bg-white/95 text-gray-800 dark:bg-[#0f172a]/95 dark:text-white z-50 data-[state=closed]:p-0 p-2"
+                  className="top-full mt-2 md:mt-2 md:absolute md:right-0 md:left-auto md:origin-top-right md:-translate-x-0 md:translate-y-0 left-4 right-4 w-auto md:w-[min(90vw,700px)] max-w-[min(95vw,700px)] md:mx-0 mx-auto overflow-auto max-h-[85vh] md:max-h-[90vh] rounded-xl border border-slate-200 shadow-xl backdrop-blur-md bg-slate-800/95 text-white z-50 data-[state=closed]:p-0 p-2"
                 >
-                  <ul className="grid gap-3 p-4 w-full max-w-[min(90vw,640px)] md:max-w-[640px] lg:grid-cols-[.75fr_1fr]">
-                    <li className="row-span-3">
-                      <NavigationMenuLink asChild>
-                        <Link
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary/20 to-primary/40 p-6 no-underline outline-none focus:shadow-md"
-                          href="/solutions"
-                        >
-                          <div className="mb-2 mt-4 text-lg font-medium text-white">
-                            AI Solutions
-                          </div>
-                          <p className="text-sm leading-tight text-white/90">
-                            Discover our complete suite of AI-powered business tools.
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
+                  <ul className="grid gap-2 p-3 w-full max-w-[min(90vw,700px)] md:max-w-[700px] lg:grid-cols-2">
+                    <li className="lg:col-span-2">
+                      <div className="flex h-full w-full select-none flex-col justify-center rounded-xl bg-gradient-to-br from-slate-700 via-slate-600 to-slate-700 border border-slate-500/40 p-4">
+                        <div className="mb-2 text-lg font-semibold text-white">
+                          AI Solutions
+                        </div>
+                        <p className="text-sm leading-relaxed text-slate-200 mb-3">
+                          Discover our complete suite of AI-powered business tools and applications.
+                        </p>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            className="inline-flex items-center justify-center rounded-lg bg-primary hover:bg-primary-dark text-white font-medium px-4 py-2 text-sm transition-colors duration-200 hover:shadow-md"
+                            href="/demo/voice-chat"
+                          >
+                            AI Voice Chat App
+                          </Link>
+                        </NavigationMenuLink>
+                      </div>
                     </li>
                     {solutions.map((solution) => (
                       <ListItem
@@ -162,7 +175,7 @@ export default function Header() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden fixed inset-0 z-50 bg-gradient-to-b from-[#E0F3FC] via-white to-white px-6 sm:px-8 py-8 sm:py-10 text-sm font-semibold text-primary-dark rounded-t-3xl shadow-2xl backdrop-blur-md"
+            className="md:hidden fixed inset-0 z-50 bg-gradient-to-b from-[#E0F3FC] via-white to-white text-sm font-medium text-primary-dark rounded-t-3xl shadow-2xl backdrop-blur-md overflow-y-auto"
             style={{
               paddingTop: "calc(env(safe-area-inset-top, 0px) + 1.5rem)",
               paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 1.5rem)",
@@ -181,7 +194,7 @@ export default function Header() {
             </div>
 
             {/* Navigation Links */}
-            <nav className="space-y-4 mt-10">
+            <nav className="space-y-3 mt-10 px-6 sm:px-8 pb-8">
               <Link
                 href="/"
                 className="block hover:text-primary transition-colors"
@@ -217,18 +230,38 @@ export default function Header() {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="pl-4 mt-2 space-y-2 overflow-hidden"
+                      className="mt-2 space-y-2 overflow-hidden"
                     >
-                      {solutions.map((solution) => (
+                      {/* AI Solutions Header */}
+                      <div className="rounded-lg bg-slate-700 border border-slate-600 p-3">
+                        <div className="mb-2 text-base font-semibold text-white">
+                          AI Solutions
+                        </div>
+                        <p className="text-sm text-slate-200 mb-3 leading-snug">
+                          Discover our complete suite of AI-powered business tools and applications.
+                        </p>
                         <Link
-                          key={solution.title}
-                          href={solution.href}
-                          className="block hover:text-primary py-1 transition-colors"
+                          href="/demo/voice-chat"
+                          className="inline-flex items-center justify-center rounded-md bg-primary hover:bg-primary-dark text-white font-medium px-3 py-2 text-sm transition-colors duration-200"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          {solution.title}
+                          AI Voice Chat App
                         </Link>
-                      ))}
+                      </div>
+
+                      {/* Solutions List */}
+                      <div className="pl-2 space-y-2">
+                        {solutions.map((solution) => (
+                          <Link
+                            key={solution.title}
+                            href={solution.href}
+                            className="block hover:text-primary py-1 transition-colors text-sm"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {solution.title}
+                          </Link>
+                        ))}
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>

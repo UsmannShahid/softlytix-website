@@ -1,0 +1,1 @@
+feat(services): Apple-style segmented tabs with deep-links; refresh starts at top; unified buttons; subtle parallax; PNG favicon + PWA icons; docs v1.1

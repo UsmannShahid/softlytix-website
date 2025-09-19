@@ -8,6 +8,8 @@ import { useEffect, useMemo, useState } from "react";
 import { Globe, RotateCcw, Rocket, MessageCircle, Mail } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import ServicesTabs from "@/components/ServicesTabs";
+import ScrollParallax from "@/components/ScrollParallax";
 
 // Animation variants
 const fadeInUp = {
@@ -34,6 +36,45 @@ const floatY = {
 };
 
 // services grid (legacy) removed per updated design
+
+// Solution cards data for the new layout
+const solutionCards = [
+  {
+    title: "AI Websites & Web Apps",
+    description: "Create websites and apps enhanced with AI features like chatbots, personalization, and analytics.",
+    useCase: "A coaching website that books appointments and answers FAQs 24/7.",
+    icon: Globe,
+    iconRotation: 5
+  },
+  {
+    title: "Workflow Automation",
+    description: "Eliminate repetitive tasks with AI-driven automation—from follow-ups to reporting.",
+    useCase: "An agency automates client reports, saving 10+ hours every month.",
+    icon: RotateCcw,
+    iconRotation: -5
+  },
+  {
+    title: "Custom AI SaaS Products",
+    description: "Build and launch scalable AI SaaS platforms—from idea to deployment.",
+    useCase: "An entrepreneur creates an AI-powered resume builder SaaS for job seekers.",
+    icon: Rocket,
+    iconRotation: 5
+  },
+  {
+    title: "Voice & Chat AI Assistants",
+    description: "Engage customers with conversational AI via chat or voice.",
+    useCase: "A real estate business uses a voice chatbot to answer property inquiries anytime.",
+    icon: MessageCircle,
+    iconRotation: -5
+  },
+  {
+    title: "AI Email & CRM Assistants",
+    description: "Personalize outreach and manage leads directly in your CRM.",
+    useCase: "A startup uses AI to re-engage cold leads and boost conversions.",
+    icon: Mail,
+    iconRotation: 5
+  }
+];
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
@@ -139,22 +180,24 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {mounted && <LottiePlayer />}
+            <ScrollParallax y={[18, -8]} opacity={[0.92, 1]}>
+              {mounted && <LottiePlayer />}
+            </ScrollParallax>
           </motion.div>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="solutions" className="py-20 px-6 bg-[#F9FAFB] text-center">
-        <div className="max-w-6xl mx-auto">
+      {/* Services Section - Apple-style segmented tabs */}
+      <section id="solutions" className="py-20 px-6 bg-[#F9FAFB]">
+        <div className="max-w-7xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 60 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-16"
+            transition={{ duration: 0.5 }}
+            className="text-center mb-8"
           >
-            <motion.div className="mb-8" variants={floatY} aria-hidden>
+            <ScrollParallax className="mb-6" y={[24, -6]} opacity={[0.85, 1]}>
               <Image
                 src="/undraw_ai-agent_pdkp.svg"
                 alt=""
@@ -163,188 +206,18 @@ export default function Home() {
                 className="mx-auto w-44"
                 priority={false}
               />
-            </motion.div>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-heading mb-4">
-              Smart Solutions Tailored to Your Business
-            </h2>
-            <p className="text-[#6B7280] max-w-2xl mx-auto">
-              From AI-powered websites to custom SaaS products, we design tools that solve real problems for service businesses, startups, and agencies.
-            </p>
+            </ScrollParallax>
+            <ScrollParallax y={[12, -4]} opacity={[0.9, 1]}>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-heading mb-3">
+                Smart Solutions
+              </h2>
+              <p className="text-[#6B7280] max-w-2xl mx-auto">
+                Explore our services below. Select a pill to learn how each helps your business.
+              </p>
+            </ScrollParallax>
           </motion.div>
 
-          {/* Solution Blocks with Use Cases */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            variants={staggerContainer}
-            className="mb-12"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-8 max-w-7xl mx-auto place-items-center">
-              {/* AI Websites & Web Apps */}
-              <motion.div
-                variants={fadeInUp}
-                whileHover={{
-                  y: -8,
-                  transition: { type: "spring", stiffness: 300, damping: 20 }
-                }}
-                className="w-full max-w-sm md:col-span-2 lg:col-span-1"
-              >
-                <Card className="group relative overflow-hidden bg-white p-6 rounded-2xl border border-gray-200/70 shadow-sm hover:shadow-xl hover:border-primary/40 transition-all duration-500 h-full">
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    aria-hidden
-                  />
-                  <CardContent className="relative p-0">
-                    <motion.div
-                      className="mb-4 inline-grid h-14 w-14 place-items-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                    >
-                      <Globe className="w-8 h-8" aria-hidden />
-                    </motion.div>
-                    <h3 className="text-xl font-semibold mb-2 text-heading">AI Websites & Web Apps</h3>
-                    <p className="text-[#374151] text-sm leading-relaxed">
-                      Create websites and apps enhanced with AI features like chatbots, personalization, and analytics.
-                    </p>
-                    <p className="mt-3 text-sm text-[#004B87] font-medium">Use case</p>
-                    <p className="text-sm text-[#374151]">A coaching website that books appointments and answers FAQs 24/7.</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              {/* Workflow Automation */}
-              <motion.div
-                variants={fadeInUp}
-                whileHover={{
-                  y: -8,
-                  transition: { type: "spring", stiffness: 300, damping: 20 }
-                }}
-                className="w-full max-w-sm md:col-span-2 lg:col-span-1"
-              >
-                <Card className="group relative overflow-hidden bg-white p-6 rounded-2xl border border-gray-200/70 shadow-sm hover:shadow-xl hover:border-primary/40 transition-all duration-500 h-full">
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    aria-hidden
-                  />
-                  <CardContent className="relative p-0">
-                    <motion.div
-                      className="mb-4 inline-grid h-14 w-14 place-items-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20"
-                      whileHover={{ scale: 1.1, rotate: -5 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                    >
-                      <RotateCcw className="w-8 h-8" aria-hidden />
-                    </motion.div>
-                    <h3 className="text-xl font-semibold mb-2 text-heading">Workflow Automation</h3>
-                    <p className="text-[#374151] text-sm leading-relaxed">
-                      Eliminate repetitive tasks with AI-driven automation—from follow-ups to reporting.
-                    </p>
-                    <p className="mt-3 text-sm text-[#004B87] font-medium">Use case</p>
-                    <p className="text-sm text-[#374151]">An agency automates client reports, saving 10+ hours every month.</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              {/* Custom AI SaaS Products */}
-              <motion.div
-                variants={fadeInUp}
-                whileHover={{
-                  y: -8,
-                  transition: { type: "spring", stiffness: 300, damping: 20 }
-                }}
-                className="w-full max-w-sm md:col-span-2 lg:col-span-1"
-              >
-                <Card className="group relative overflow-hidden bg-white p-6 rounded-2xl border border-gray-200/70 shadow-sm hover:shadow-xl hover:border-primary/40 transition-all duration-500 h-full">
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    aria-hidden
-                  />
-                  <CardContent className="relative p-0">
-                    <motion.div
-                      className="mb-4 inline-grid h-14 w-14 place-items-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                    >
-                      <Rocket className="w-8 h-8" aria-hidden />
-                    </motion.div>
-                    <h3 className="text-xl font-semibold mb-2 text-heading">Custom AI SaaS Products</h3>
-                    <p className="text-[#374151] text-sm leading-relaxed">
-                      Build and launch scalable AI SaaS platforms—from idea to deployment.
-                    </p>
-                    <p className="mt-3 text-sm text-[#004B87] font-medium">Use case</p>
-                    <p className="text-sm text-[#374151]">An entrepreneur creates an AI-powered resume builder SaaS for job seekers.</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              {/* Voice & Chat AI Assistants */}
-              <motion.div
-                variants={fadeInUp}
-                whileHover={{
-                  y: -8,
-                  transition: { type: "spring", stiffness: 300, damping: 20 }
-                }}
-                className="w-full max-w-sm md:col-span-2 lg:col-span-1"
-              >
-                <Card className="group relative overflow-hidden bg-white p-6 rounded-2xl border border-gray-200/70 shadow-sm hover:shadow-xl hover:border-primary/40 transition-all duration-500 h-full">
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    aria-hidden
-                  />
-                  <CardContent className="relative p-0">
-                    <motion.div
-                      className="mb-4 inline-grid h-14 w-14 place-items-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20"
-                      whileHover={{ scale: 1.1, rotate: -5 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                    >
-                      <MessageCircle className="w-8 h-8" aria-hidden />
-                    </motion.div>
-                    <h3 className="text-xl font-semibold mb-2 text-heading">Voice & Chat AI Assistants</h3>
-                    <p className="text-[#374151] text-sm leading-relaxed">
-                      Engage customers with conversational AI via chat or voice.
-                    </p>
-                    <p className="mt-3 text-sm text-[#004B87] font-medium">Use case</p>
-                    <p className="text-sm text-[#374151]">A real estate business uses a voice chatbot to answer property inquiries anytime.</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              {/* AI Email & CRM Assistants */}
-              <motion.div
-                variants={fadeInUp}
-                whileHover={{
-                  y: -8,
-                  transition: { type: "spring", stiffness: 300, damping: 20 }
-                }}
-                className="w-full max-w-sm md:col-span-2 lg:col-span-1"
-              >
-                <Card className="group relative overflow-hidden bg-white p-6 rounded-2xl border border-gray-200/70 shadow-sm hover:shadow-xl hover:border-primary/40 transition-all duration-500 h-full">
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    aria-hidden
-                  />
-                  <CardContent className="relative p-0">
-                    <motion.div
-                      className="mb-4 inline-grid h-14 w-14 place-items-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                    >
-                      <Mail className="w-8 h-8" aria-hidden />
-                    </motion.div>
-                    <h3 className="text-xl font-semibold mb-2 text-heading">AI Email & CRM Assistants</h3>
-                    <p className="text-[#374151] text-sm leading-relaxed">
-                      Personalize outreach and manage leads directly in your CRM.
-                    </p>
-                    <p className="mt-3 text-sm text-[#004B87] font-medium">Use case</p>
-                    <p className="text-sm text-[#374151]">A startup uses AI to re-engage cold leads and boost conversions.</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          {/* Removed legacy services grid per updated design */}
+          <ServicesTabs />
         </div>
       </section>
 
@@ -358,7 +231,7 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="mb-12"
           >
-            <motion.div className="mb-8" variants={floatY} aria-hidden>
+            <ScrollParallax className="mb-8" y={[22, -6]} opacity={[0.9, 1]}>
               <Image
                 src="/undraw_browsing_z5g5.svg"
                 alt=""
@@ -366,7 +239,7 @@ export default function Home() {
                 height={180}
                 className="mx-auto w-44"
               />
-            </motion.div>
+            </ScrollParallax>
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-heading mb-4">
               Explore What We're Building
             </h2>
@@ -400,7 +273,7 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="mb-10"
           >
-            <motion.div className="mb-8" variants={floatY} aria-hidden>
+            <ScrollParallax className="mb-8" y={[22, -6]} opacity={[0.9, 1]}>
               <Image
                 src="/undraw_profile_d7qw.svg"
                 alt=""
@@ -408,7 +281,7 @@ export default function Home() {
                 height={180}
                 className="mx-auto w-44"
               />
-            </motion.div>
+            </ScrollParallax>
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-heading mb-6">
               Our Mission
             </h2>
@@ -429,7 +302,7 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="mb-16"
           >
-            <motion.div className="mb-8" variants={floatY} aria-hidden>
+            <ScrollParallax className="mb-8" y={[20, -6]} opacity={[0.9, 1]}>
               <Image
                 src="/undraw_testimonials_4c7y.svg"
                 alt=""
@@ -437,7 +310,7 @@ export default function Home() {
                 height={180}
                 className="mx-auto w-44"
               />
-            </motion.div>
+            </ScrollParallax>
 
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-heading mb-6">
               What Our Clients Say
@@ -476,7 +349,7 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="mb-16"
           >
-            <motion.div className="mb-8" variants={floatY} aria-hidden>
+            <ScrollParallax className="mb-8" y={[18, -6]} opacity={[0.92, 1]}>
               <Image
                 src="/undraw_sign-up_qamz.svg"
                 alt=""
@@ -484,7 +357,7 @@ export default function Home() {
                 height={180}
                 className="mx-auto w-44"
               />
-            </motion.div>
+            </ScrollParallax>
 
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-heading mb-2">
               Ready to Build Smarter with AI?

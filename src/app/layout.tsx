@@ -21,6 +21,11 @@ export const metadata: Metadata = {
   title: "Softlytix | AI-Powered Business Solutions",
   description: "Empowering service businesses with AI-powered automation tools that enhance productivity while preserving the human touch.",
   keywords: "AI business solutions, automation tools, service business, AI chatbots, workflow automation",
+  icons: {
+    icon: "/images/favicon.png",
+    apple: "/images/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
   openGraph: {
     title: "Softlytix | AI-Powered Business Solutions",
     description: "Empowering service businesses with AI-powered automation tools that enhance productivity while preserving the human touch.",

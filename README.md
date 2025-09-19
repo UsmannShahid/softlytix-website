@@ -1,10 +1,18 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Softlytix marketing site — Next.js 14 (App Router), Tailwind, shadcn/ui, framer-motion.
 
 ## Design Spec
 
-For brand, layout, animation, and responsiveness guidelines, see the Softlytix Design Spec:
+See design guidelines, components, and patterns:
 
 - [softlytix/design-spec.md](./design-spec.md)
+
+Highlights in v1.1:
+- Apple-style Services segmented control (connected pills, deep links).
+- Uniform pill buttons sitewide (shadcn Button tuned).
+- Subtle Apple-like parallax on section illustrations/headings.
+- Reduced-motion support for major interactions.
+- Favicon now configured to use `/favicon.png` (place the asset in `public/favicon.png`).
+- PWA icons added: apple touch and maskable icons via `/images/*` and `site.webmanifest`.
 
 ## Getting Started
 
@@ -22,9 +30,19 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Key files:
+- `src/app/page.tsx` — home page (hero, services tabs, sections, parallax).
+- `src/components/ServicesTabs.tsx` — Apple-style segmented tabs (ARIA, keyboard, mobile chevrons, deep link `?service=<id>#solutions`).
+- `src/components/ScrollParallax.tsx` — small wrapper for subtle scroll transforms.
+- `src/components/ui/button.tsx` — shadcn Button with unified pill shape and consistent sizes.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Edit services content in `src/components/ServicesTabs.tsx` (labels, title, description, use cases, href).
+
+Assets:
+- Favicon: place your icon at `softlytix/public/images/favicon.png` (32x32 or 48x48).
+- Apple touch icon: `softlytix/public/images/apple-touch-icon.png` (we currently mirror the favicon for convenience).
+- Android/Maskable: `softlytix/public/images/android-chrome-192x192.png` and `...512x512.png` (also mirrored now).
+- Manifest: `softlytix/public/site.webmanifest` declares icons and display mode.
 
 ## Learn More
 
@@ -35,8 +53,8 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Future Styles / TODOs
+- Add tab dividers for iOS-like segmented look (optional).
+- Add deep-link “Share this tab” helper.
+- Global reduced-motion toggle to disable decorative effects.
+- Extract animation tokens (durations/easings) to a constants file.

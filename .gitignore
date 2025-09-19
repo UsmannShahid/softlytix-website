@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Local agent notes (do not commit)
 AGENT_NOTES.md
+
+# local agent workspace
+.claude/

@@ -1,6 +1,6 @@
 **Softlytix Design Spec**
 
-- Version: 1.0
+ - Version: 1.1
 - Scope: Softlytix marketing site (home-first), Next.js App Router
 - Ownership: Frontend/UI
 
@@ -58,8 +58,9 @@
   - Stars: opacity twinkle with random delay/duration; ≤ 42 nodes; client-only.
   - Meteor: one pass every ~10–12s; opacity in/out; client-only.
   - Section entrances: `whileInView` with `viewport={{ once: true }}`.
-- Reduced Motion
-  - Prefer honoring `prefers-reduced-motion` (future work): disable star/meteor and entrance animations when requested.
+ - Reduced Motion
+  - Honor `prefers-reduced-motion`: reduce or disable selection/hover animations and parallax.
+  - Decorative effects (Stars/Meteor) should be gated in the future when reduced motion is requested.
 
 **Responsiveness**
 - Breakpoints
@@ -99,6 +100,13 @@
   - Hero layout, Lottie loader (`next/script`), Stars/Meteor, sections with motion.
   - Lottie component: `LottiePlayer()`; stars/meteor gated behind mount.
 - Styles: `src/app/globals.css` (tokens, base/reset, overflow guards).
+ - Services Tabs: `src/components/ServicesTabs.tsx`
+   - Connected segmented control with icons/two-line labels, ARIA roles, keyboard support.
+   - Deep-links `?service=<id>#solutions`; reduced-motion aware; mobile chevrons.
+ - Scroll Parallax: `src/components/ScrollParallax.tsx`
+   - Small wrapper for subtle y/opacity transforms on scroll.
+ - Buttons: `src/components/ui/button.tsx`
+   - Unified pill shape (`rounded-full`) and size tuning across the site.
 
 **Assets & Paths**
 - Logos
@@ -121,4 +129,16 @@
 - Add a global reduced-motion hook to disable non-essential animations.
 - Add visual regression tests for header states across breakpoints.
 - Extract animation tokens (durations/easings) into a single constants file.
+ 
+**Services Section (v1.1 — supersedes grid)**
 
+- Visual: Apple-style segmented tabs on a connected track.
+  - Selected pill: near-black background, white text, soft shadow.
+  - Inactive: white background, gray text, subtle border, no heavy shadow.
+- Behavior & A11y:
+  - `role="tablist"` + `role="tab"` + `aria-selected` + `aria-controls`; panel is `role="tabpanel"`.
+  - Keyboard: ArrowLeft/Right move focus (roving tabindex); Enter/Space selects.
+  - Reduced motion: selection/hover animations and parallax are minimized.
+  - Deep link: selection syncs to URL `?service=<id>#solutions` and restores on reload.
+- Mobile: chevrons navigate left/right; active pill auto-centers (scrollbar hidden).
+- Content model: `id, icon, labelTop, labelBottom, title, description, useCases[], href`.
